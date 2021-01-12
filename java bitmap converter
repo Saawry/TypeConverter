@@ -1,0 +1,39 @@
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Bitmap.CompressFormat;
+import androidx.room.TypeConverter;
+import java.io.ByteArrayOutputStream;
+import java.io.OutputStream;
+import kotlin.Metadata;
+import kotlin.jvm.internal.Intrinsics;
+import org.jetbrains.annotations.NotNull;
+
+@Metadata(
+   mv = {1, 1, 16},
+   bv = {1, 0, 3},
+   k = 1,
+   xi = 2,
+   d1 = {"\u0000\u001a\n\u0002\u0018\u0002\n\u0002\u0010\u0000\n\u0002\b\u0002\n\u0002\u0010\u0012\n\u0000\n\u0002\u0018\u0002\n\u0002\b\u0003\u0018\u00002\u00020\u0001B\u0005¢\u0006\u0002\u0010\u0002J\u0010\u0010\u0003\u001a\u00020\u00042\u0006\u0010\u0005\u001a\u00020\u0006H\u0007J\u0010\u0010\u0007\u001a\u00020\u00062\u0006\u0010\b\u001a\u00020\u0004H\u0007¨\u0006\t"},
+   d2 = {"LConverters;", "", "()V", "fromBitmap", "", "bitmap", "Landroid/graphics/Bitmap;", "toBitmap", "byteArray", "app_debug"}
+)
+public final class Converters {
+   @TypeConverter
+   @NotNull
+   public final byte[] fromBitmap(@NotNull Bitmap bitmap) {
+      Intrinsics.checkNotNullParameter(bitmap, "bitmap");
+      ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+      bitmap.compress(CompressFormat.PNG, 100, (OutputStream)outputStream);
+      byte[] var10000 = outputStream.toByteArray();
+      Intrinsics.checkNotNullExpressionValue(var10000, "outputStream.toByteArray()");
+      return var10000;
+   }
+
+   @TypeConverter
+   @NotNull
+   public final Bitmap toBitmap(@NotNull byte[] byteArray) {
+      Intrinsics.checkNotNullParameter(byteArray, "byteArray");
+      Bitmap var10000 = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+      Intrinsics.checkNotNullExpressionValue(var10000, "BitmapFactory.decodeByte…Array, 0, byteArray.size)");
+      return var10000;
+   }
+}
